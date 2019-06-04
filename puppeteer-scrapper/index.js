@@ -13,20 +13,17 @@ const success = chalk.keyword("green");
     // open a new page
     var page = await browser.newPage();
     // enter url in page
-    await page.goto(`https://news.ycombinator.com/`);
-    await page.waitForSelector("a.storylink");
+    await page.goto(`https://www.lovemondays.com.br/trabalhar-na-accenture/avaliacoes`);
+    await page.waitForSelector("ul.lm-List-default");
 
     var news = await page.evaluate(() => {
-      var titleNodeList = document.querySelectorAll(`a.storylink`);
-      var ageList = document.querySelectorAll(`span.age`);
-      var scoreList = document.querySelectorAll(`span.score`);
+      var username = document.querySelectorAll(`span.reviewer`);
+      var avaliation = document.querySelectorAll(`div.lm-Review-contribution`);
       var titleLinkArray = [];
-      for (var i = 0; i < titleNodeList.length; i++) {
+      for (var i = 0; i < username.length; i++) {
         titleLinkArray[i] = {
-          title: titleNodeList[i].innerText.trim(),
-          link: titleNodeList[i].getAttribute("href"),
-          age: ageList[i].innerText.trim(),
-          score: scoreList[i].innerText.trim()
+          user: titleNodeList[i].innerText.trim(),
+          avaliation: avaliation[i].innerText.trim()
         };
       }
       return titleLinkArray;
@@ -34,7 +31,7 @@ const success = chalk.keyword("green");
     // console.log(news);
     await browser.close();
     // Writing the news inside a json file
-    fs.writeFile("hackernews.json", JSON.stringify(news), function(err) {
+    fs.writeFile("teste.json", JSON.stringify(news), function(err) {
       if (err) throw err;
       console.log("Saved!");
     });
