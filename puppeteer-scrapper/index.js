@@ -5,7 +5,7 @@ var fs = require("fs");
 // MY OCD of colorful console.logs for debugging... IT HELPS
 const error = chalk.bold.red;
 const success = chalk.keyword("green");
-const lastPageNumber = 25;
+const lastPageNumber = 35;
 
 empresas = ['accenture', 'stefanini', 'ibm', 'totvs', 'algar-tech', 'sonda-it', 'hp-inc', 'dell', 'linx', 'oracle', 'resource-it-solutions', 'ericsson', 'vivo-telefonica-brasil', 'tivit', 'tim', 'claro-brasil', 'b2w-digital', 'concentrix', 'nextel-telecomunicacoes'];
 
@@ -15,14 +15,14 @@ empresas = ['accenture', 'stefanini', 'ibm', 'totvs', 'algar-tech', 'sonda-it', 
     var browser = await puppeteer.launch({headless: false });
     // open a new page
     var page = await browser.newPage();
-
     await page.goto(`https://www.lovemondays.com.br/`, {waitUntil: 'networkidle2'});
     await page.waitFor(20000);
-    for (let j = 0; j < empresas.length; j++) {
+    for (let j = 0; j <= empresas.length; j++) {
+      console.log(empresas[j]);      
       fs.mkdir('data/' + empresas[j], { recursive: true }, (err) => {
         if (err) throw err;
       });      
-      for (let index = 1; index < lastPageNumber; index++) {      
+      for (let index = 1; index <= lastPageNumber; index++) {      
         await page.goto(`https://www.lovemondays.com.br/trabalhar-na-` + empresas[j] + `/avaliacoes/pagina/` +index);
         await page.waitForSelector("ul.lm-List-default");
         var ratings = await page.evaluate(() => {
