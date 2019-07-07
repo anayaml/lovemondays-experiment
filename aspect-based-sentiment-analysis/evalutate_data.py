@@ -49,9 +49,10 @@ integer_sentiment = label_encoder_2.fit_transform(reviews_train.sentiment)
 encoded_y = to_categorical(integer_sentiment)
 sentiment_model.fit(reviews_tokenized, encoded_y, epochs=100, verbose=1)
 
-test_csv = pd.read_csv('en_experiment_dataset.csv').astype(str)
+test_csv = pd.read_csv('new_en_experiment_dataset.csv').astype(str)
 
 test_reviews = [review.review.lower() for review in test_csv.itertuples()]
+former_emp = [review.former_emp for review in test_csv.itertuples()]
 # Aspect preprocessing
 test_reviews = [review.lower() for review in test_reviews]
 test_aspect_terms = []
@@ -81,6 +82,8 @@ test_sentiment = label_encoder_2.inverse_transform(
 for i in range(len(test_reviews)-1):
     print("Review " + str(i+1) + " is expressing a  " + test_sentiment[i] + " opinion about " + test_aspect_categories[i])
     if (test_sentiment[i] == 'positive'):
-        generate_dataset.generate_quantitative_dataset(3, test_aspect_categories[i])
+        generate_dataset.generate_visual_dataset(3, test_aspect_categories[i], former_emp[i])
+        generate_dataset.generate_quantitative_dataset(3, test_aspect_categories[i], former_emp[i])
     if (test_sentiment[i] == 'negative'):
-        generate_dataset.generate_quantitative_dataset(1, test_aspect_categories[i])
+        generate_dataset.generate_visual_dataset(1, test_aspect_categories[i], former_emp[i])
+        generate_dataset.generate_quantitative_dataset(1, test_aspect_categories[i], former_emp[i])
