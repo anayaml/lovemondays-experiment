@@ -6,7 +6,7 @@ nltk.download('stopwords')
 
 #Spacy
 import spacy
-nlp = spacy.load('en')
+nlp = spacy.load('en_core_web_sm')
 
 # Other
 import re
@@ -22,4 +22,8 @@ warnings.filterwarnings('ignore')
 from keras.models import load_model
 from keras.models import Sequential
 from keras.layers import Dense, Activation
+from keras.preprocessing.text import Tokenizer
+from keras.utils import to_categorical
 
+#SKlearn
+from sklearn.preprocessing import LabelEncoder
