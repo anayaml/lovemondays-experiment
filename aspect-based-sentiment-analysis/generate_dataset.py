@@ -1,8 +1,8 @@
 import csv
 
-turnover = open('lovemondays_turnover.csv', 'w+', encoding='utf8')
+turnover = open('2lovemondays_turnover.csv', 'w+', encoding='utf8')
 
-visual_turnover = open('visual_turnover.csv', 'w+', encoding='utf8')
+visual_turnover = open('2visual_turnover.csv', 'w+', encoding='utf8')
 
 csv_writer = csv.writer(turnover, delimiter=',', lineterminator='\n')
 

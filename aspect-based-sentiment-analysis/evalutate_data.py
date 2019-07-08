@@ -9,7 +9,7 @@ absa_model = Sequential()
 absa_model.add(Dense(512, input_shape=(6000,), activation='relu'))
 absa_model.add((Dense(256, activation='relu')))
 absa_model.add((Dense(128, activation='relu')))
-absa_model.add(Dense(8, activation='softmax'))
+absa_model.add(Dense(9, activation='softmax'))
 # compile model
 absa_model.compile(loss='categorical_crossentropy',
                 optimizer='Adam', metrics=['accuracy'])
