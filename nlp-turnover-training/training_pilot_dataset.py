@@ -1,6 +1,6 @@
 from imports import *
 
-reviews_train = pd.read_csv('convertcsv.csv').astype(str)
+reviews_train = pd.read_csv('en_training_dataset.csv').astype(str)
 
 absa_model = Sequential()
 absa_model.add(Dense(512, input_shape=(6000,), activation='relu'))

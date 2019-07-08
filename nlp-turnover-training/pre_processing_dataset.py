@@ -15,21 +15,19 @@ def translate_training_dataset_to_english():
         csv_writer.writerow([cons['translatedText'], "NA", "NA", "negative"])
 
 def translate_final_dataset_to_english():
-    en_dataset_csv = open("/data/en_experiment_dataset.csv", 'w+', encoding="utf8")
+    en_dataset_csv = open("en_experiment_dataset.csv", 'w+', encoding="utf8")
     data_writer = csv.writer(en_dataset_csv, delimiter=',', lineterminator="\n")
     count = 0
     translator = translate.Client()
-    pt_dataset = pd.read_csv('/data/dataset_without_pilot_data.csv', encoding='utf8')
+    pt_dataset = pd.read_csv('final_dataset.csv', encoding='utf8')
     data_writer.writerow(["review", "former_emp"])
     for reg in pt_dataset.itertuples():
         pro = translator.translate(reg.pros, target_language='en')
         cons = translator.translate(reg.cons, target_language='en')
-        data_writer.writerow([pro['translatedText'], reg.former_employee])
-        data_writer.writerow([cons['translatedText'], reg.former_employee])
+        data_writer.writerow([pro['translatedText'], reg.former_emp])
+        data_writer.writerow([cons['translatedText'], reg.former_emp])
         count +=1
         print(count)
 
-print("--- Training Dataset ----")
-translate_training_dataset_to_english()
 print("--- Final Dataset ----")
 translate_final_dataset_to_english()

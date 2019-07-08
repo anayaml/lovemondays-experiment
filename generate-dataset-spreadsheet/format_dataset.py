@@ -55,7 +55,7 @@ def verify_if_it_employee(job_title):
         if job in job_title.lower():
             return True
 
-with open('reviews.csv','r', encoding="utf8") as in_file:
+with open('reviews_without_dupes.csv','r', encoding="utf8") as in_file:
     dataset_reader = csv.DictReader(in_file, delimiter=",")
 
     #limpa os arquivos csv antes da escrita dos dados
@@ -69,6 +69,7 @@ with open('reviews.csv','r', encoding="utf8") as in_file:
     non_it_job = 0
     invalid_avaliation = 0
     valid_responses = 0
+
     for line in dataset_reader:
         job_title = format_employee_job_title(line['user'])
         if(verify_valid_job_title(job_title)):
@@ -76,25 +77,25 @@ with open('reviews.csv','r', encoding="utf8") as in_file:
                 if (verify_if_it_employee(job_title)):
                     pros, cons, advice = format_employee_avaliation(line['avaliation'])
                     valid_responses += 1
-                    if (line['former_employeer']):
-                        create_valid_reviews_dataset(job_title, pros, cons, advice, 1)
-                    else:
+                    if (line['former_employeer'] == "False"):
                         create_valid_reviews_dataset(job_title, pros, cons, advice, 0)
+                    else:
+                        create_valid_reviews_dataset(job_title, pros, cons, advice, 1)
                 else:
                     non_it_job += 1
-                    if(line["former_employeer"]):
-                        create_invalid_reviews_dataset(line["user"], line["avaliation"], 1, "Função não relacionada a área de TI")
-                    else:
+                    if(line["former_employeer"]  == "False"):
                         create_invalid_reviews_dataset(line["user"], line["avaliation"], 0, "Função não relacionada a área de TI")
+                    else:
+                        create_invalid_reviews_dataset(line["user"], line["avaliation"], 1, "Função não relacionada a área de TI")
             else:
                 create_invalid_reviews_dataset(line["user"], line["avaliation"], 1, "Avaliação Inválida")
                 invalid_avaliation += 1
         else:
             invalid_job_title += 1
-            if(line["former_employeer"]):
-                create_invalid_reviews_dataset(line["user"], line["avaliation"], 1, "Função não especificada")
-            else:
+            if(line["former_employeer"] == "False"):
                 create_invalid_reviews_dataset(line["user"], line["avaliation"], 0, "Função não especificada")
+            else:
+                create_invalid_reviews_dataset(line["user"], line["avaliation"], 1, "Função não especificada")
 
 print("Registros excluídos por não possuir função do reviewer: " +str(invalid_job_title))
 print("Registros excluídos por não possuir avaliação válida: " +str(invalid_avaliation))
