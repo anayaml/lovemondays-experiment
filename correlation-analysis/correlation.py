@@ -1,5 +1,14 @@
-import pandas as pd
+# importing pandas module 
+import pandas as pd 
 
-dataframe = pd.read_csv('lovemondays_turnover.csv')
+# importing regex module 
+import re 
+	
+# making data frame 
+data = pd.read_csv("2lovemondays_turnover.csv") 
 
-print(dataframe.corr(method='pearson'))
+correlation = data.corr(method="pearson")
+
+correlation.to_csv("plot.csv")
+
+print(data.corr(method="pearson"))

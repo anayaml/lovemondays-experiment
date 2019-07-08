@@ -21,10 +21,15 @@ knitr::opts_chunk$set(tidy = FALSE,
 ```
 
 ```{r}
-glimpse(visual_turnover)
+glimpse(X2lovemondays_turnover)
 ```
 
 ```{r}
-cor(lovemondays_turnover, method = "pearson") 
+cor(X2lovemondays_turnover, method = "pearson") 
 ```
 
+
+```{r}
+X2lovemondays_turnover %>%
+  cor(method = "pearson")
+```
